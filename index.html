@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+    :root {
+        --landing-primary-rgb: 14, 30, 95;
+    }
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untolds • Digital Conversation Cards</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Add Aston Script font -->
+    <link href="https://fonts.cdnfonts.com/css/aston-script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <!-- Load local styles -->
+    <link rel="stylesheet" href="assets/fonts/aston-script.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/cards.css">
+    <!-- Add Aston Script font -->
+<link href="https://fonts.cdnfonts.com/css/aston-script" rel="stylesheet">
+</head>
+<body>
+    <!-- Landing Page -->
+    <div class="landing-page" id="landingPage">
+        <!-- Landing Page Header (with settings button) -->
+        <div class="game-header">
+            <div class="game-title">UNTOLDS</div>
+            <div class="header-controls">
+                <div class="dropdown" id="settingsDropdownLanding">
+                    <button class="icon-button" id="settingsDropdownLandingBtn">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="dropdown-title">
+                            <i class="fas fa-cog"></i> SETTINGS
+                        </div>
+                        <div class="setting-item">
+                            <span>Dark Mode</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="darkModeToggleLanding">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <span>Sound Effects</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="soundToggleLanding" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="dropdown-section">
+                            <div class="dropdown-section-title">Game Info</div>
+                            <div class="dropdown-option" onclick="showHowToPlay()">
+                                <i class="fas fa-question-circle"></i> HOW TO PLAY
+                            </div>
+                            <div class="dropdown-option" onclick="showAbout()">
+                                <i class="fas fa-info-circle"></i> ABOUT UNTOLDS
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stacked Card Visualization -->
+        <div class="stacked-cards">
+            <div class="stack-card stack-card-1">
+                <div class="stack-untolds-text">UNTOLDS</div>
+                <div class="stack-chapter-display font-chapter">UNSUNG EMOTIONS</div>
+                <div class="stack-description">Engaging Conversation Starters to Build Trust & Deep Connections</div>
+            </div>
+            <div class="stack-card stack-card-2"></div>
+            <div class="stack-card stack-card-3"></div>
+        </div>
+        
+        <!-- Deck Dots Indicator -->
+        <div class="deck-dots" id="deckDots">
+            <div class="dot active" data-deck="unsung"></div>
+            <div class="dot" data-deck="unsungplus"></div>
+            <div class="dot" data-deck="love"></div>
+            <div class="dot" data-deck="loveplus"></div>
+            <div class="dot" data-deck="between"></div>
+            <div class="dot" data-deck="wild"></div>
+            <div class="dot" data-deck="whiskey"></div>
+        </div>
+        
+        <!-- Start Button -->
+        <button class="start-button" onclick="startGame()">
+            START GAME <i class="fas fa-arrow-right"></i>
+        </button>
+        
+        <!-- Hidden Deck Selection -->
+        <div class="deck-selection-hidden">
+            <div class="deck-card" onclick="selectDeck('unsung')" id="deck-unsung">
+                <div class="deck-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="deck-title">UNSUNG EMOTIONS</div>
+                <div class="deck-description font-secondary">Engaging Conversation Starters to Build Trust & Deep Connections</div>
+            </div>
+            
+            <div class="deck-card" onclick="selectDeck('unsungplus')" id="deck-unsungplus">
+                <div class="deck-icon">
+                    <i class="fas fa-users-plus"></i>
+                </div>
+                <div class="deck-title">UNSUNG EMOTIONS PLUS</div>
+                <div class="deck-description font-secondary">Enhanced Edition with Grateful, Truth & Impact Cards</div>
+            </div>
+            
+            <div class="deck-card" onclick="selectDeck('love')" id="deck-love">
+                <div class="deck-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="deck-title">LOVE UNFILTERED</div>
+                <div class="deck-description font-secondary">Engaging Conversation Starters on Love & Relationship Matters</div>
+            </div>
+            
+            <div class="deck-card" onclick="selectDeck('loveplus')" id="deck-loveplus">
+                <div class="deck-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <div class="deck-title">LOVE UNFILTERED PLUS</div>
+                <div class="deck-description font-secondary">Advanced Edition with Special Role Cards</div>
+            </div>
+            
+            <div class="deck-card" onclick="selectDeck('between')" id="deck-between">
+                <div class="deck-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="deck-title">BETWEEN US</div>
+                <div class="deck-description font-secondary">A Conversation Starter Card Game for Couples</div>
+            </div>
+            
+            <div class="deck-card" onclick="selectDeck('wild')" id="deck-wild">
+                <div class="deck-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="deck-title">WILD ONES</div>
+                <div class="deck-description font-secondary">A Bold & Off-Limits Conversation Card Game for Adults & Friends</div>
+            </div>
+            
+            <div class="deck-card" onclick="selectDeck('whiskey')" id="deck-whiskey">
+                <div class="deck-icon">
+                    <i class="fas fa-whiskey-glass"></i>
+                </div>
+                <div class="deck-title">LIFE OVER WHISKEY</div>
+                <div class="deck-description font-secondary">Limited Edition • Deep Engaging Conversation Starters On Life Matters</div>
+            </div>
+        </div>
+        
+        <!-- How to Play Modal -->
+        <div class="modal" id="howToPlayModal">
+            <div class="modal-content">
+                <div class="modal-title">HOW TO PLAY</div>
+                <div class="modal-message font-secondary">
+                    <ol style="text-align: left; margin-left: 20px; line-height: 1.8;">
+                        <li>Select a deck by clicking the dots below or tapping the stacked cards</li>
+                        <li>Click <strong>START GAME</strong> to begin</li>
+                        <li>Click <strong>DRAW NEW CARD</strong> — the card will automatically flip to reveal the question</li>
+                        <li>Answer according to the rule at the bottom of the card</li>
+                        <li>Click <strong>DRAW NEW CARD</strong> again for the next question</li>
+                        <li>Use the settings menu to toggle dark mode or sound effects</li>
+                    </ol>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn primary" onclick="closeModal('howToPlayModal')" style="width: 150px;">
+                        GOT IT
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- About Modal -->
+        <div class="modal" id="aboutModal">
+            <div class="modal-content">
+                <div class="modal-title">ABOUT UNTOLDS</div>
+                <div class="modal-message font-secondary">
+                    <p style="text-align: left; line-height: 1.8; margin-bottom: 15px;">
+                        <strong>UNTOLDS</strong> is a digital conversation card game designed to help people build deeper connections through meaningful conversations.
+                    </p>
+                    <p style="text-align: left; line-height: 1.8; margin-bottom: 15px;">
+                        With multiple decks tailored for different relationships and situations, UNTOLDS provides a safe space for sharing thoughts, feelings, and stories that often go unspoken.
+                    </p>
+                    <p style="text-align: left; line-height: 1.8;">
+                        Perfect for friends, couples, families, or even as a personal reflection tool. Start conversations that matter.
+                    </p>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn primary" onclick="closeModal('aboutModal')" style="width: 150px;">
+                        CLOSE
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Page -->
+        <div class="game-page" id="gamePage">
+            <!-- Game Header -->
+            <div class="game-header">
+                <div class="game-title" id="currentGameDeck" style="cursor: pointer;" title="Click to go back to menu">UNSUNG EMOTIONS</div>
+                <div class="header-controls">
+                    <div class="dropdown" id="deckDropdown">
+                        <button class="icon-button" id="deckDropdownBtn">
+                            <i class="fas fa-layer-group"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <div class="dropdown-title">
+                                <i class="fas fa-layer-group"></i> CHANGE DECK
+                            </div>
+                            <div class="dropdown-section">
+                                <div class="dropdown-section-title">Friendship & Connection</div>
+                                <div class="dropdown-option" data-deck="unsung">
+                                    <i class="fas fa-users"></i> UNSUNG EMOTIONS
+                                </div>
+                                <div class="dropdown-option" data-deck="unsungplus">
+                                    <i class="fas fa-users-plus"></i> UNSUNG EMOTIONS PLUS
+                                </div>
+                            </div>
+                            <div class="dropdown-section">
+                                <div class="dropdown-section-title">Love & Relationships</div>
+                                <div class="dropdown-option" data-deck="love">
+                                    <i class="fas fa-heart"></i> LOVE UNFILTERED
+                                </div>
+                                <div class="dropdown-option" data-deck="loveplus">
+                                    <i class="fas fa-seedling"></i> LOVE UNFILTERED PLUS
+                                </div>
+                                <div class="dropdown-option" data-deck="between">
+                                    <i class="fas fa-home"></i> BETWEEN US
+                                </div>
+                            </div>
+                            <div class="dropdown-section">
+                                <div class="dropdown-section-title">Social & Party</div>
+                                <div class="dropdown-option" data-deck="wild">
+                                    <i class="fas fa-star"></i> WILD ONES
+                                </div>
+                                <div class="dropdown-option" data-deck="whiskey">
+                                    <i class="fas fa-whiskey-glass"></i> LIFE OVER WHISKEY
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown" id="settingsDropdown">
+                        <button class="icon-button" id="settingsDropdownBtn">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <div class="dropdown-title">
+                                <i class="fas fa-cog"></i> SETTINGS
+                            </div>
+                            <div class="setting-item">
+                                <span>Dark Mode</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="darkModeToggle">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <span>Sound Effects</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="soundToggle" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="dropdown-section">
+                                <div class="dropdown-section-title">Game Controls</div>
+                                <div class="dropdown-option" id="resetGameBtn">
+                                    <i class="fas fa-redo"></i> RESET GAME
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Game Area -->
+            <div class="card-area">
+                <!-- Main Card with Shuffling Animation -->
+                <div class="card-container" onclick="handleCardClick()">
+                    <!-- Shuffling Animation Container -->
+                    <div class="shuffle-container" id="shuffleContainer">
+                        <!-- These cards will be populated with the back-facing card content -->
+                    </div>
+                    
+                    <!-- Main Card -->
+                    <div class="card" id="card">
+                        <!-- Card Back (Dynamically set) -->
+                        <div class="card-face card-back" id="cardBack">
+                            <div class="card-back-content">
+                                <div class="untolds-text">UNTOLDS</div>
+                                <div class="chapter-display font-chapter" id="chapterDisplay">UNSUNG EMOTIONS</div>
+                                <div class="deck-name-display" id="cardDeckName">Engaging Conversation Starters to Build Trust & Deep Connections</div>
+                                <div class="card-number-display">Card <span id="cardNumber">0</span>/<span id="totalCards">0</span></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card Front - Will be dynamically set based on card type -->
+                        <div class="card-face card-front" id="cardFront">
+                            <div class="card-type font-card-type" id="cardTypeDisplay"></div>
+                            <div class="card-content">
+                                <div class="question" id="cardPrompt">
+                                    <!-- Instructions or Question will be inserted here -->
+                                </div>
+                            </div>
+                            <div class="card-info">
+                                <div class="answer-rule" id="answerRule">Click DRAW NEW CARD to start</div>
+                                <div class="card-logo">UNTOLDS</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Previous Card (Not clickable) -->
+                <div class="previous-card">
+                    <div class="previous-card-title">
+                        <i class="fas fa-history"></i> PREVIOUS CARD
+                    </div>
+                    <div class="previous-card-content" id="previousCardContent">
+                        <span class="no-previous">No previous card yet</span>
+                    </div>
+                </div>
+
+                <!-- Game Controls -->
+                <div class="game-controls">
+                    <button class="game-btn" onclick="drawCard()" id="drawButton">
+                        <i class="fas fa-plus"></i> DRAW NEW CARD
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+    <!-- Deck Change Modal -->
+    <div class="modal" id="deckChangeModal">
+        <div class="modal-content">
+            <div class="modal-title" style="text-align: center;">CHANGE DECK</div>
+            <div class="modal-message font-secondary" style="text-align: center;">
+                You're about to change the deck from <span id="currentDeckName">UNSUNG EMOTIONS</span> to <span id="newDeckName">UNSUNG EMOTIONS PLUS</span>.
+                <br><br>
+                Would you like to reset the game with the new deck, or continue with the current card history?
+            </div>
+            <div class="modal-actions" style="justify-content: center; flex-direction: column; align-items: center; gap: 15px;">
+                <button class="modal-btn primary" onclick="resetWithNewDeck()" style="width: 200px;">
+                    RESET GAME
+                </button>
+                <button class="modal-btn secondary" onclick="continueWithNewDeck()" style="width: 200px;">
+                    CONTINUE
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load JavaScript -->
+    <script src="scripts/game.js"></script>
+    
+    <!-- Add this script to handle dropdown functionality -->
+    <script>
+        // Initialize dropdown functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setup dropdown toggle buttons
+            const deckDropdownBtn = document.getElementById('deckDropdownBtn');
+            const settingsDropdownBtn = document.getElementById('settingsDropdownBtn');
+            const settingsDropdownLandingBtn = document.getElementById('settingsDropdownLandingBtn');
+            
+            if (deckDropdownBtn) {
+                deckDropdownBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    toggleDropdown('deckDropdown');
+                });
+            }
+            
+            if (settingsDropdownBtn) {
+                settingsDropdownBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    toggleDropdown('settingsDropdown');
+                });
+            }
+            
+            if (settingsDropdownLandingBtn) {
+                settingsDropdownLandingBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    toggleDropdown('settingsDropdownLanding');
+                });
+            }
+            
+            // Setup deck selection from dropdown
+            const deckOptions = document.querySelectorAll('#deckDropdown .dropdown-option');
+            deckOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const deckId = this.getAttribute('data-deck');
+                    if (deckId && typeof changeDeck === 'function') {
+                        changeDeck(deckId);
+                    } else if (deckId) {
+                        // Fallback if changeDeck is not loaded yet
+                        console.log('Selected deck:', deckId);
+                        alert('Deck selected: ' + deckId + '. The game will load this deck.');
+                    }
+                });
+            });
+            
+            // Setup reset game button
+            const resetGameBtn = document.getElementById('resetGameBtn');
+            if (resetGameBtn && typeof resetGame === 'function') {
+                resetGameBtn.addEventListener('click', resetGame);
+            }
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dropdown')) {
+                    closeAllDropdowns();
+                }
+            });
+            
+            // Close dropdowns with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeAllDropdowns();
+                }
+            });
+            
+            // Setup landing page dark mode toggle
+            const darkModeToggleLanding = document.getElementById('darkModeToggleLanding');
+            if (darkModeToggleLanding) {
+                const darkModePref = localStorage.getItem('untoldsDarkMode');
+                if (darkModePref === 'true') {
+                    document.body.classList.add('dark-mode');
+                    darkModeToggleLanding.checked = true;
+                }
+                
+                darkModeToggleLanding.addEventListener('change', function() {
+                    toggleDarkModeLanding();
+                });
+            }
+            
+            // Setup landing page sound toggle
+            const soundToggleLanding = document.getElementById('soundToggleLanding');
+            if (soundToggleLanding) {
+                soundToggleLanding.addEventListener('change', function() {
+                    toggleSoundLanding();
+                });
+            }
+        });
+        
+        // Make sure these functions are available globally
+        window.toggleDropdown = function(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            if (!dropdown) return;
+            
+            const isActive = dropdown.classList.contains('active');
+            closeAllDropdowns();
+            
+            if (!isActive) {
+                dropdown.classList.add('active');
+            }
+        };
+        
+        window.closeAllDropdowns = function() {
+            document.querySelectorAll('.dropdown').forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        };
+        
+        // Landing page functions
+        window.toggleDarkModeLanding = function() {
+            const toggle = document.getElementById('darkModeToggleLanding');
+            if (toggle) {
+                document.body.classList.toggle('dark-mode');
+                toggle.checked = document.body.classList.contains('dark-mode');
+                localStorage.setItem('untoldsDarkMode', document.body.classList.contains('dark-mode'));
+                
+                // Re-apply deck-specific colors if the game functions are loaded
+                if (typeof updateDeckColors === 'function' && typeof updateLandingPageCardColors === 'function') {
+                    updateDeckColors();
+                    updateLandingPageCardColors();
+                }
+            }
+        };
+        
+        window.toggleSoundLanding = function() {
+            const toggle = document.getElementById('soundToggleLanding');
+            if (toggle) {
+                // Get or create gameState
+                if (typeof gameState === 'undefined') {
+                    // Initialize a basic gameState if not loaded yet
+                    window.gameState = window.gameState || {
+                        soundEnabled: true
+                    };
+                }
+                gameState.soundEnabled = toggle.checked;
+            }
+        };
+    </script>
+</body>
+</html>

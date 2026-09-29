@@ -1,0 +1,2246 @@
+/* main.css - Updated with Liquid Glass Effects and Swipe Functionality - INCLUDES iPAD SAFARI FIXES */
+
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Dynamic CSS Variables for Deck Colors */
+:root {
+    /* UNSUNG EMOTIONS (Original) - Default */
+    --deck-primary: #0E1E5F;
+    --deck-secondary: #FFFFFF;
+    --deck-accent: #0E1E5F;
+    --deck-back-bg: #0E1E5F;
+    --deck-back-text: #FFFFFF;
+    --deck-back-border: #0E1E5F;
+    --deck-back-class: 'unsung-original-back';
+    --deck-icon: #0E1E5F;
+    --deck-light-bg: rgba(14, 30, 95, 0.1);
+    --deck-dark-bg: rgba(14, 30, 95, 0.9);
+    --deck-shadow: rgba(14, 30, 95, 0.2);
+    
+    /* Landing page specific variables - initially same as default */
+    --landing-primary: #0E1E5F;
+    --landing-secondary: #FFFFFF;
+    --landing-accent: #0E1E5F;
+    --landing-back-bg: #0E1E5F;
+    --landing-back-text: #FFFFFF;
+    --landing-back-border: #0E1E5F;
+    --landing-shadow: rgba(14, 30, 95, 0.2);
+    
+    /* Card Colors */
+    --blue-card: #0E1E5F;
+    --white-card-bg: #FFFFFF;
+    --white-card-text: #0E1E5F;
+    
+    /* UNIFIED CARD SIZING - Used by both landing stacked cards and main game card */
+    --card-width: 500px;
+    --card-height: 320px;
+}
+
+/* Font Classes */
+.font-primary {
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.font-secondary {
+    font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 400;
+}
+
+.font-question {
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 700;
+}
+
+.font-card-type {
+    font-family: 'Aston Script', cursive;
+    font-weight: bold;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.font-chapter {
+    font-family: 'Aston Script', cursive;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* LIQUID GLASS EFFECTS */
+.liquid-glass {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: 
+        0 8px 32px 0 rgba(31, 38, 135, 0.37),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode .liquid-glass {
+    background: rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 8px 32px 0 rgba(0, 0, 0, 0.37),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+}
+
+/* LIQUID GLASS BUTTONS */
+.liquid-button {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 8px 32px 0 rgba(31, 38, 135, 0.37),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.liquid-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: all 0.6s ease;
+}
+
+.liquid-button:hover::before {
+    left: 100%;
+}
+
+.liquid-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 12px 40px 0 rgba(31, 38, 135, 0.45),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+/* Body with swipe navigation area */
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: #333;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    transition: all 0.3s ease;
+    font-family: 'Nunito Sans', sans-serif;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Fix for Safari's viewport height issue */
+@supports (-webkit-touch-callout: none) {
+    body {
+        height: -webkit-fill-available;
+    }
+}
+
+/* Deck-specific backgrounds for landing page */
+.landing-page.unsung-bg {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.landing-page.unsungplus-bg {
+    background: linear-gradient(135deg, #e8ecff 0%, #d0d8ff 100%);
+}
+
+.landing-page.love-bg {
+    background: linear-gradient(135deg, #f9e8e7 0%, #f2d1d0 100%);
+}
+
+.landing-page.loveplus-bg {
+    background: linear-gradient(135deg, #f5e9e9 0%, #edd9d8 100%);
+}
+
+.landing-page.between-bg {
+    background: linear-gradient(135deg, #f8f1f4 0%, #e8dae0 100%);
+}
+
+.landing-page.wild-bg {
+    background: linear-gradient(135deg, #f0f0f0 0%, #d9d9d9 100%);
+}
+
+.landing-page.whiskey-bg {
+    background: linear-gradient(135deg, #f5f5f5 0%, #e6e6e6 100%);
+}
+
+.dark-mode.landing-page.unsung-bg {
+    background: linear-gradient(135deg, rgba(14, 30, 95, 0.9) 0%, #0E1E5F 100%);
+}
+
+.dark-mode.landing-page.unsungplus-bg {
+    background: linear-gradient(135deg, rgba(14, 30, 95, 0.8) 0%, #0E1E5F 100%);
+}
+
+.dark-mode.landing-page.love-bg {
+    background: linear-gradient(135deg, rgba(122, 22, 15, 0.9) 0%, #7A160F 100%);
+}
+
+.dark-mode.landing-page.loveplus-bg {
+    background: linear-gradient(135deg, rgba(71, 16, 13, 0.9) 0%, #47100D 100%);
+}
+
+.dark-mode.landing-page.between-bg {
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, #6D213C 100%);
+}
+
+.dark-mode.landing-page.wild-bg {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, #000000 100%);
+}
+
+.dark-mode.landing-page.whiskey-bg {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, #5C4033 100%);
+}
+
+/* Deck-specific dark mode backgrounds for game page */
+body.dark-mode.unsung-mode {
+    background: linear-gradient(135deg, rgba(14, 30, 95, 0.9) 0%, #0E1E5F 100%);
+    color: #FFFFFF;
+}
+
+body.dark-mode.love-mode {
+    background: linear-gradient(135deg, rgba(122, 22, 15, 0.9) 0%, #7A160F 100%);
+    color: #FFFFFF;
+}
+
+body.dark-mode.between-mode {
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, #6D213C 100%);
+    color: #C0C0C0;
+}
+
+body.dark-mode.loveplus-mode {
+    background: linear-gradient(135deg, rgba(71, 16, 13, 0.9) 0%, #47100D 100%);
+    color: #ECF0F1;
+}
+
+body.dark-mode.wild-mode {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, #000000 100%);
+    color: #FFFFFF;
+}
+
+body.dark-mode.whiskey-mode {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, #5C4033 100%);
+    color: #D4AF37;
+}
+
+body.dark-mode {
+    background: linear-gradient(135deg, var(--deck-dark-bg) 0%, var(--deck-primary) 100%);
+    color: var(--deck-secondary);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+}
+
+/* ============================== */
+/* UPDATED LANDING PAGE STYLES */
+/* ============================== */
+
+.landing-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    height: 100vh;
+    height: -webkit-fill-available;
+    text-align: center;
+    padding: 20px 15px;
+    gap: 20px;
+    position: relative;
+    overflow-y: auto;
+    transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+/* Fix for Safari's viewport height issue */
+@supports (-webkit-touch-callout: none) {
+    .landing-page, .game-page {
+        height: -webkit-fill-available;
+    }
+}
+
+/* Landing Page Header - Updated to match game page header size and style */
+.game-header, .landing-page .game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1160px;
+    min-height: 70px;
+    position: relative;
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.dark-mode .landing-page .game-header {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Landing page game title - Just shows UNTOLDS logo */
+.game-header, .landing-page .game-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--landing-primary);
+    letter-spacing: 1.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: default;
+    line-height: 1;
+}
+
+.landing-page .game-title:hover {
+    transform: none;
+    opacity: 1;
+}
+
+.dark-mode .landing-page .game-title {
+    color: var(--landing-secondary);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Show header controls on landing page */
+.landing-page .header-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    position: relative;
+    z-index: 1000;
+}
+
+/* Swipe indicator */
+.swipe-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    z-index: 10;
+    opacity: 0.8;
+    animation: float 2s ease-in-out infinite;
+}
+
+.swipe-text {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    color: var(--landing-primary);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.dark-mode .swipe-text {
+    color: var(--landing-secondary);
+}
+
+.swipe-icon {
+    font-size: 24px;
+    color: var(--landing-primary);
+    animation: swipeUp 1.5s ease-in-out infinite;
+}
+
+.dark-mode .swipe-icon {
+    color: var(--landing-secondary);
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes swipeUp {
+    0% { transform: translateY(0); opacity: 0.5; }
+    50% { transform: translateY(-10px); opacity: 1; }
+    100% { transform: translateY(0); opacity: 0.5; }
+}
+
+.landing-page.hidden {
+    display: none;
+}
+
+/* ============================================ */
+/* STACKED CARDS - MATCHED TO MAIN CARD SIZE    */
+/* ============================================ */
+.stacked-cards {
+    position: relative;
+    width: 100%;
+    max-width: var(--card-width);
+    height: var(--card-height);
+    margin: 10px auto;
+    perspective: 1000px;
+    cursor: grab;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+}
+
+.stacked-cards:active {
+    cursor: grabbing;
+}
+
+.stacked-cards.swiping-up {
+    transform: translateY(-100vh);
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stacked-cards.swiping-down {
+    transform: translateY(100vh);
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stack-card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px; /* MATCHED to main card */
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2); /* MATCHED to main card */
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px; /* MATCHED to main card back */
+    text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+/* Liquid Glass Effect for Cards */
+.stack-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1;
+    border-radius: 16px; /* MATCHED */
+}
+
+.stack-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+.stack-card-1 {
+    background: var(--landing-back-bg);
+    color: var(--landing-back-text);
+    border: 2px solid var(--landing-back-border);
+    z-index: 3;
+    transform: translateY(0) rotateZ(0deg) scale(1);
+}
+
+.stack-card-2 {
+    background: var(--landing-back-bg);
+    opacity: 0.7;
+    z-index: 2;
+    transform: translateY(15px) rotateZ(2deg) scale(0.95);
+    border: 2px solid var(--landing-back-border);
+    filter: blur(2px);
+}
+
+.stack-card-3 {
+    background: var(--landing-back-bg);
+    opacity: 0.4;
+    z-index: 1;
+    transform: translateY(30px) rotateZ(4deg) scale(0.9);
+    border: 2px solid var(--landing-back-border);
+    filter: blur(4px);
+}
+
+.stacked-cards:hover .stack-card-1 {
+    transform: translateY(-15px) rotateZ(-1deg) scale(1.02);
+    box-shadow: 0 30px 60px -12px var(--landing-shadow);
+}
+
+.stacked-cards:hover .stack-card-2 {
+    transform: translateY(0) rotateZ(1.5deg) scale(0.97);
+    filter: blur(1px);
+}
+
+.stacked-cards:hover .stack-card-3 {
+    transform: translateY(15px) rotateZ(3deg) scale(0.92);
+    filter: blur(3px);
+}
+
+/* Stack card text - MATCHED to main card back */
+.stack-untolds-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px; /* MATCHED to main card back */
+    margin-bottom: -8px; /* MATCHED */
+    letter-spacing: 2px;
+    color: var(--landing-back-text);
+    line-height: 1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.stack-chapter-display {
+    font-family: 'Aston Script', cursive;
+    font-size: 16px; /* MATCHED to main card back */
+    margin-bottom: 5px; /* MATCHED */
+    letter-spacing: 1px;
+    color: var(--landing-back-text);
+    opacity: 0.95;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.stack-description {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    color: var(--landing-back-text);
+    opacity: 0.9;
+    max-width: 400px;
+    padding: 0 20px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+}
+
+.stack-card-number {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 15px; /* MATCHED */
+    color: var(--landing-back-text);
+    opacity: 0.8;
+    position: absolute;
+    bottom: 15px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Deck Dots - Updated with Liquid Glass */
+.deck-dots {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    padding: 12px 20px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 10px 0;
+    flex-shrink: 0;
+}
+
+.dark-mode .deck-dots {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+}
+
+.dark-mode .dot {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.dot.active {
+    background: var(--landing-primary);
+    border-color: var(--landing-primary);
+    transform: scale(1.4);
+    box-shadow: 0 0 10px var(--landing-primary);
+}
+
+.dark-mode .dot.active {
+    background: var(--landing-secondary);
+    border-color: var(--landing-secondary);
+    box-shadow: 0 0 10px var(--landing-secondary);
+}
+
+.dot:hover {
+    transform: scale(1.3);
+    background: var(--landing-primary);
+}
+
+.dark-mode .dot:hover {
+    background: var(--landing-secondary);
+}
+
+/* Start Button - Updated with Liquid Glass */
+.start-button {
+    background: var(--landing-primary);
+    color: var(--landing-secondary);
+    border: none;
+    padding: 18px 40px;
+    border-radius: 50px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: 1px;
+    box-shadow: 
+        0 20px 40px var(--landing-shadow),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: 30px;
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 300px;
+}
+
+.start-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: left 0.7s ease;
+}
+
+.start-button:hover::before {
+    left: 100%;
+}
+
+.start-button:hover {
+    background: var(--landing-accent);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 
+        0 30px 60px var(--landing-shadow),
+        0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.start-button:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+.start-button i {
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.start-button:hover i {
+    transform: translateX(8px);
+}
+
+/* Hidden Deck Selection (for JavaScript) */
+.deck-selection-hidden {
+    display: none;
+}
+
+/* ============================== */
+/* GAME PAGE STYLES (UPDATED WITH LIQUID GLASS) */
+/* ============================== */
+
+.game-page {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    height: 100vh;
+    height: -webkit-fill-available;
+    text-align: center;
+    padding: 20px 15px;
+    gap: 20px;
+    position: relative;
+    overflow-y: auto;
+    transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+.game-page .previous-card-content{
+    text-align: left;
+}
+
+.game-page.active {
+    display: flex;
+}
+
+/* Header - Updated with Liquid Glass - Now same size for both landing and game pages */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1160px;
+    min-height: 70px;
+    position: relative;
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.dark-mode .game-header {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Game page game title - Shows deck name and is clickable */
+.game-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--deck-primary);
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    line-height: 1;
+}
+
+.game-title:hover {
+    opacity: 0.9;
+    transform: scale(1.03);
+}
+
+.dark-mode .game-title {
+    color: var(--deck-secondary);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.header-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    position: relative;
+    z-index: 1000;
+}
+
+/* Control Buttons - Updated with Liquid Glass */
+.icon-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: var(--deck-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1001;
+}
+
+.dark-mode .icon-button {
+    background: rgba(0, 0, 0, 0.15);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--deck-secondary);
+}
+
+.icon-button:hover {
+    transform: scale(1.15) rotate(5deg);
+    background: var(--deck-primary);
+    color: var(--deck-secondary);
+    box-shadow: 0 8px 25px var(--deck-shadow);
+}
+
+.dark-mode .icon-button:hover {
+    background: var(--deck-secondary);
+    color: var(--deck-primary);
+}
+
+/* ============================== */
+/* DROPDOWN MENUS - COHESIVE LIQUID GLASS */
+/* ============================== */
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border-radius: 20px;
+    padding: 20px;
+    min-width: 300px;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    display: none;
+    z-index: 2000;
+    margin-top: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode .dropdown-content {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.dropdown.active .dropdown-content {
+    display: block;
+    animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    margin-bottom: 16px;
+    color: var(--deck-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    letter-spacing: 1px;
+}
+
+.dark-mode .dropdown-title {
+    color: var(--deck-secondary);
+}
+
+.dropdown-section {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.dark-mode .dropdown-section {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dropdown-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.dropdown-section-title {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 11px;
+    color: var(--deck-primary);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    opacity: 0.6;
+}
+
+.dark-mode .dropdown-section-title {
+    color: var(--deck-secondary);
+    opacity: 0.5;
+}
+
+.dropdown-option {
+    padding: 12px 14px;
+    margin: 6px 0;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--deck-primary);
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.dark-mode .dropdown-option {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--deck-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dropdown-option:hover {
+    background: var(--deck-primary);
+    color: var(--deck-secondary);
+    transform: translateX(5px);
+    border-color: var(--deck-primary);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .dropdown-option:hover {
+    background: var(--deck-secondary);
+    color: var(--deck-primary);
+    border-color: var(--deck-secondary);
+}
+
+.dropdown-option i {
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+    opacity: 0.8;
+}
+
+/* Toggle switch inside dropdown */
+.dropdown-content .slider {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode .dropdown-content .slider {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.dropdown-content input:checked + .slider {
+    background-color: var(--deck-primary);
+}
+
+.dark-mode .dropdown-content input:checked + .slider {
+    background-color: var(--deck-secondary);
+}
+
+/* Card Design - Updated with Liquid Glass */
+.card-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    padding-bottom: 100px;
+}
+
+.card-container {
+    perspective: 1500px;
+    width: 100%;
+    max-width: var(--card-width); /* Uses unified variable */
+    height: var(--card-height); /* Uses unified variable */
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+}
+
+/* Shuffling animation container */
+.shuffle-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+}
+
+.shuffle-container.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ============================================ */
+/* SHUFFLE CARDS - MATCHED TO MAIN CARD BACK    */
+/* ============================================ */
+.shuffle-card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px; /* MATCHED to main card */
+    padding: 25px; /* MATCHED to main card face */
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2); /* MATCHED */
+    transform-origin: center;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Background, color, border come from the back class applied in JS */
+}
+
+/* Shuffling animation */
+@keyframes shuffle {
+    0% {
+        transform: translateY(0) rotateZ(0);
+        opacity: 0;
+    }
+    20% {
+        transform: translateY(-15px) rotateZ(-8deg);
+        opacity: 1;
+    }
+    40% {
+        transform: translateY(15px) rotateZ(8deg);
+        opacity: 1;
+    }
+    60% {
+        transform: translateY(-10px) rotateZ(-5deg);
+        opacity: 1;
+    }
+    80% {
+        transform: translateY(10px) rotateZ(5deg);
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Main card - Updated with Liquid Glass */
+.card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+/* When drawing, we use a faster flip */
+.card.flipping-fast {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card Back - Updated with Liquid Glass */
+.card-back {
+    background: var(--deck-back-bg);
+    color: var(--deck-back-text);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    z-index: 1;
+}
+
+.card-back-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+}
+
+.untolds-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px;
+    margin-bottom: -8px;
+    letter-spacing: 2px;
+    color: var(--deck-back-text);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.chapter-display {
+    font-family: 'Aston Script', cursive;
+    font-size: 16px;
+    margin-bottom: 5px;
+    opacity: 0.95;
+    letter-spacing: 1px;
+    color: var(--deck-back-text);
+}
+
+.deck-name-display {
+    display: none;
+    font-size: 24px;
+    margin-bottom: 8px;
+    opacity: 0.9;
+}
+
+.card-number-display {
+    font-size: 15px;
+    opacity: 0.8;
+    font-family: 'Nunito Sans', sans-serif;
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: var(--deck-back-text);
+}
+
+/* Card Front - Updated with Liquid Glass */
+.card-front {
+    transform: rotateY(180deg);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    z-index: 1;
+}
+
+/* UNIVERSAL FRONT CARD FORMAT */
+.card-type {
+    font-family: 'Aston Script', cursive;
+    font-size: 16px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.card-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    min-height: 0;
+    padding: 10px 0;
+}
+
+.question {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+    text-align: center;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 10px 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+}
+
+.card-info {
+    width: 100%;
+    margin-top: auto;
+    text-align: center;
+}
+
+.card-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    opacity: 0.7;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* Answer Rules - Updated with Liquid Glass */
+.answer-rule {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    opacity: 0.9;
+    text-align: center;
+    padding: 6px 15px;
+}
+
+.card-prompt {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 24px;
+    line-height: 1.4;
+    text-align: center;
+    margin: auto;
+    padding: 0 15px;
+    font-weight: 700;
+}
+
+/* Previous Card - Updated with Liquid Glass */
+.previous-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 15px 20px;
+    width: 100%;
+    max-width: var(--card-width); /* Uses unified variable */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+}
+
+.dark-mode .previous-card {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.previous-card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: var(--deck-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .previous-card-title {
+    color: var(--deck-secondary);
+}
+
+.previous-card-content {
+    font-size: 15px;
+    line-height: 1.4;
+    color: var(--deck-primary);
+    font-weight: 600;
+    opacity: 0.85;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+}
+
+.dark-mode .previous-card-content {
+    color: var(--deck-secondary);
+}
+
+.no-previous {
+    opacity: 0.6;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+/* Game Controls - Updated with Liquid Glass - STICKY FOR iPAD */
+.game-controls {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    bottom: 20px;
+    padding: 15px;
+    margin-top: auto;
+    width: 100%;
+    max-width: 300px;
+    z-index: 100;
+}
+
+.dark-mode .game-controls {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.game-btn {
+    background: var(--deck-primary);
+    color: var(--deck-secondary);
+    border: none;
+    padding: 18px 30px;
+    border-radius: 50px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 1px;
+    box-shadow: 
+        0 15px 35px var(--deck-shadow),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    justify-content: center;
+}
+
+.game-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: left 0.7s ease;
+}
+
+.game-btn:hover::before {
+    left: 100%;
+}
+
+.game-btn:hover {
+    background: var(--deck-accent);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 
+        0 25px 45px var(--deck-shadow),
+        0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.game-btn:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+.game-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Modal - Updated with Liquid Glass */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border-radius: 24px;
+    padding: 30px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.dark-mode .modal-content {
+    background: rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.modal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: var(--deck-primary);
+    text-align: center;
+    width: 100%;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .modal-title {
+    color: var(--deck-secondary);
+}
+
+.modal-message {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.5;
+    text-align: center;
+    width: 100%;
+}
+
+.dark-mode .modal-message {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-btn {
+    padding: 14px 30px;
+    border-radius: 50px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: 1px;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: left 0.7s ease;
+}
+
+.modal-btn:hover::before {
+    left: 100%;
+}
+
+.modal-btn.primary {
+    background: var(--deck-primary);
+    color: var(--deck-secondary);
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.modal-btn.primary:hover {
+    background: var(--deck-accent);
+    transform: translateY(-2px) scale(1.05);
+}
+
+.modal-btn.secondary {
+    background: transparent;
+    color: var(--deck-primary);
+    border: 1px solid var(--deck-primary);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .modal-btn.secondary {
+    color: var(--deck-secondary);
+    border-color: var(--deck-secondary);
+}
+
+.modal-btn.secondary:hover {
+    background: var(--deck-primary);
+    color: var(--deck-secondary);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Settings - Matched to Change Deck dropdown style */
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 6px 0;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    color: var(--deck-primary);
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .setting-item {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--deck-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.toggle-switch {
+    position: relative;
+    width: 60px;
+    height: 30px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: .4s;
+    border-radius: 34px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.dark-mode .slider {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+    background-color: var(--deck-secondary);
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input:checked + .slider {
+    background-color: var(--deck-primary);
+    border-color: var(--deck-primary);
+}
+
+input:checked + .slider:before {
+    transform: translateX(30px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInFromTop {
+    from { transform: translateY(-100vh); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInFromBottom {
+    from { transform: translateY(100vh); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.slide-in-top {
+    animation: slideInFromTop 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-in-bottom {
+    animation: slideInFromBottom 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Swipe transition animations */
+.swipe-transition-up {
+    animation: swipeUpTransition 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.swipe-transition-down {
+    animation: swipeDownTransition 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes swipeUpTransition {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-50vh);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+}
+
+@keyframes swipeDownTransition {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(50vh);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+/* ============================== */
+/* iPAD PRO 11-INCH SPECIFIC FIXES */
+/* ============================== */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* iPad Pro 11-inch general */
+    
+    :root {
+        --card-width: 450px;
+        --card-height: 300px;
+    }
+    
+    .container {
+        padding: 15px;
+    }
+    
+    .landing-page, .game-page {
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    /* Adjust header size */
+    .game-header, .landing-page .game-header {
+        padding: 12px 18px;
+        min-height: 65px;
+        margin-bottom: 10px;
+    }
+    
+    .game-title {
+        font-size: 32px;
+    }
+    
+    /* Stacked cards use unified sizing via CSS variables */
+    .stacked-cards {
+        max-width: var(--card-width);
+        height: var(--card-height);
+        margin: 5px auto;
+    }
+    
+    .stack-untolds-text {
+        font-size: 70px;
+    }
+    
+    .stack-chapter-display {
+        font-size: 15px;
+    }
+    
+    .stack-description {
+        font-size: 13px;
+        padding: 0 20px;
+    }
+    
+    /* Main game card uses unified sizing */
+    .card-container {
+        max-width: var(--card-width);
+        height: var(--card-height);
+    }
+    
+    .untolds-text {
+        font-size: 70px;
+    }
+    
+    .chapter-display {
+        font-size: 15px;
+    }
+    
+    /* Previous card matches card width */
+    .previous-card {
+        max-width: var(--card-width);
+        padding: 12px 18px;
+        margin: 5px auto;
+    }
+    
+    /* Game controls sticky positioning */
+    .game-controls {
+        bottom: 15px;
+        padding: 12px;
+        max-width: var(--card-width);
+    }
+    
+    /* Adjust button sizes */
+    .game-btn, .start-button {
+        padding: 16px 25px;
+        font-size: 20px;
+        max-width: 350px;
+    }
+    
+    /* Adjust icons */
+    .icon-button {
+        width: 48px;
+        height: 48px;
+        font-size: 18px;
+    }
+    
+    /* Adjust dropdowns for iPad */
+    .dropdown-content {
+        max-height: 60vh;
+        overflow-y: auto;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 350px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    /* iPad Pro 11-inch landscape */
+    
+    :root {
+        --card-width: 500px;
+        --card-height: 280px;
+    }
+    
+    .stacked-cards {
+        max-width: var(--card-width);
+        height: var(--card-height);
+    }
+    
+    .card-container {
+        max-width: var(--card-width);
+        height: var(--card-height);
+    }
+    
+    .game-controls {
+        bottom: 10px;
+        padding: 10px;
+        max-width: var(--card-width);
+    }
+    
+    .game-btn, .start-button {
+        padding: 14px 22px;
+        font-size: 18px;
+    }
+    
+    .stack-untolds-text {
+        font-size: 65px;
+    }
+    
+    .untolds-text {
+        font-size: 65px;
+    }
+}
+
+/* ============================== */
+/* RESPONSIVE BREAKPOINTS */
+/* ============================== */
+
+@media (max-width: 834px) {
+    /* iPad Pro 11 2020 optimization and smaller tablets */
+    
+    :root {
+        --card-width: 450px;
+        --card-height: 300px;
+    }
+    
+    .stacked-cards {
+        max-width: var(--card-width);
+        height: var(--card-height);
+    }
+    
+    .stack-untolds-text {
+        font-size: 70px;
+    }
+    
+    .stack-chapter-display {
+        font-size: 15px;
+    }
+    
+    .stack-description {
+        font-size: 13px;
+        padding: 0 25px;
+    }
+    
+    .start-button {
+        padding: 16px 35px;
+        font-size: 20px;
+        max-width: 350px;
+    }
+    
+    .deck-dots {
+        gap: 8px;
+        padding: 10px 18px;
+    }
+    
+    .dot {
+        width: 9px;
+        height: 9px;
+    }
+    
+    .container {
+        padding: 15px;
+    }
+    
+    .card-container {
+        max-width: var(--card-width);
+        height: var(--card-height);
+    }
+    
+    .card-face {
+        padding: 20px;
+    }
+    
+    .card-prompt {
+        font-size: 20px;
+    }
+    
+    .untolds-text {
+        font-size: 70px;
+    }
+    
+    .game-title {
+        font-size: 32px;
+    }
+    
+    .game-controls {
+        width: 100%;
+        max-width: var(--card-width);
+    }
+    
+    .game-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Mobile dropdown positioning - FIXED */
+    .dropdown-content {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 350px;
+        max-height: 70vh;
+        overflow-y: auto;
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(40px) saturate(180%);
+        -webkit-backdrop-filter: blur(40px) saturate(180%);
+    }
+    
+    .dark-mode .dropdown-content {
+        background: rgba(0, 0, 0, 0.15);
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+    }
+    
+    .modal-btn {
+        width: 100%;
+        max-width: 250px;
+    }
+    
+    .swipe-indicator {
+        bottom: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Mobile phones */
+    
+    :root {
+        --card-width: 320px;
+        --card-height: 280px;
+    }
+    
+    .stacked-cards {
+        max-width: var(--card-width);
+        height: var(--card-height);
+    }
+    
+    .stack-untolds-text {
+        font-size: 60px;
+    }
+    
+    .stack-chapter-display {
+        font-size: 14px;
+    }
+    
+    .stack-description {
+        font-size: 12px;
+        padding: 0 15px;
+    }
+    
+    .start-button {
+        padding: 14px 30px;
+        font-size: 18px;
+        max-width: 300px;
+    }
+    
+    .deck-dots {
+        gap: 6px;
+        padding: 8px 15px;
+    }
+    
+    .dot {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .card-container {
+        max-width: var(--card-width);
+        height: var(--card-height);
+    }
+    
+    .card-prompt {
+        font-size: 18px;
+    }
+    
+    .untolds-text {
+        font-size: 60px;
+    }
+    
+    .game-title {
+        font-size: 28px;
+    }
+    
+    .shuffle-card {
+        padding: 15px;
+    }
+    
+    .answer-rule {
+        font-size: 11px;
+        padding: 5px 12px;
+    }
+    
+    .question {
+        font-size: 15px;
+    }
+    
+    .modal-content {
+        padding: 20px 15px;
+    }
+    
+    .modal-title {
+        font-size: 24px;
+    }
+    
+    .modal-message {
+        font-size: 14px;
+    }
+    
+    .swipe-indicator {
+        bottom: 15px;
+    }
+    
+    .swipe-text {
+        font-size: 12px;
+    }
+    
+    .swipe-icon {
+        font-size: 20px;
+    }
+    
+    .icon-button {
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
+    }
+}
+
+/* Remove old landing page styles */
+.logo,
+.tagline,
+.deck-categories,
+.category-section,
+.category-title,
+.category-description,
+.deck-selection {
+    display: none;
+}
+
+/* ============================== */
+/* Z-INDEX FIXES FOR DROPDOWNS */
+/* ============================== */
+
+/* Ensure all game elements have proper z-index */
+.card,
+.card-face,
+.card-back,
+.card-front {
+    z-index: 1 !important;
+}
+
+.card-container {
+    z-index: 1 !important;
+}
+
+.shuffle-container {
+    z-index: 2 !important;
+}
+
+.shuffle-card {
+    z-index: 2 !important;
+}
+
+.game-header {
+    z-index: 10 !important;
+}
+
+.header-controls {
+    z-index: 1000 !important;
+}
+
+.icon-button {
+    z-index: 1001 !important;
+}
+
+.dropdown {
+    z-index: 1000 !important;
+}
+
+.dropdown-content {
+    z-index: 2000 !important;
+}
+
+.modal {
+    z-index: 3000 !important;
+}
+
+/* Ensure body and html don't clip dropdowns */
+html, body {
+    overflow-x: hidden;
+}
+
+/* iOS Specific Fixes */
+.ios-device .card-container:hover,
+.ios-device .stack-card:hover,
+.ios-device .deck-card:hover {
+    transform: none !important;
+}
+
+/* Better touch targets for iOS */
+@media (hover: none) and (pointer: coarse) {
+    .icon-button {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    .game-btn, .start-button, .modal-btn {
+        min-height: 44px;
+        padding: 12px 24px;
+    }
+    
+    .dot {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .dropdown-option {
+        padding: 14px 12px;
+        min-height: 48px;
+    }
+}
+
+/* Custom scrollbar for better UX */
+.card-area::-webkit-scrollbar,
+.previous-card::-webkit-scrollbar,
+.modal-content::-webkit-scrollbar,
+.dropdown-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.card-area::-webkit-scrollbar-track,
+.previous-card::-webkit-scrollbar-track,
+.modal-content::-webkit-scrollbar-track,
+.dropdown-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.card-area::-webkit-scrollbar-thumb,
+.previous-card::-webkit-scrollbar-thumb,
+.modal-content::-webkit-scrollbar-thumb,
+.dropdown-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.dark-mode .card-area::-webkit-scrollbar-track,
+.dark-mode .previous-card::-webkit-scrollbar-track,
+.dark-mode .modal-content::-webkit-scrollbar-track,
+.dark-mode .dropdown-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .card-area::-webkit-scrollbar-thumb,
+.dark-mode .previous-card::-webkit-scrollbar-thumb,
+.dark-mode .modal-content::-webkit-scrollbar-thumb,
+.dark-mode .dropdown-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ============================== */
+/* FLEX LAYOUT FIXES FOR BUTTON VISIBILITY */
+/* ============================== */
+
+.game-page .card-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.game-page .card-container {
+    flex-shrink: 0;
+}
+
+.game-page .previous-card {
+    flex-shrink: 0;
+}
+
+.game-page .game-controls {
+    flex-shrink: 0;
+    margin-top: auto;
+}
+
+/* Landing page similar fix */
+.landing-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+}
+
+.landing-page .game-header {
+    flex-shrink: 0;
+}
+
+.landing-page .stacked-cards {
+    flex-shrink: 0;
+    margin: 15px 0;
+}
+
+.landing-page .deck-dots {
+    flex-shrink: 0;
+    margin: 10px 0;
+}
+
+.landing-page .start-button {
+    flex-shrink: 0;
+    margin-top: auto;
+    margin-bottom: 30px;
+}
+
+/* ============================== */
+/* TEXT OVERFLOW PREVENTION */
+/* ============================== */
+
+.question, .stack-description, .previous-card-content,
+.modal-message, .dropdown-option {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+}
+
+/* ============================== */
+/* TOUCH TARGET OPTIMIZATION FOR iPAD */
+/* ============================== */
+
+@media (hover: none) and (pointer: coarse) and (min-width: 768px) {
+    .icon-button {
+        min-width: 50px;
+        min-height: 50px;
+    }
+    
+    .dot {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .dropdown-option {
+        padding: 14px 16px;
+        min-height: 52px;
+    }
+    
+    .modal-btn, .game-btn, .start-button {
+        min-height: 50px;
+    }
+}

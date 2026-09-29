@@ -1,0 +1,865 @@
+/* CARD STYLES FROM CARD-DESIGN.HTML - Using exact colors with Liquid Glass Effects */
+
+/* LIQUID GLASS CARD BASE STYLES */
+.card-face {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+}
+
+/* Add subtle gradient and corner highlight to all card faces */
+.card-face::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(255, 255, 255, 0.05) 100%
+    );
+    pointer-events: none;
+    border-radius: 16px;
+}
+
+/* Corner highlight effect */
+.card-face::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 60px;
+    height: 60px;
+    border-radius: 0 16px 0 40px;
+    pointer-events: none;
+}
+
+/* ============================================ */
+/* SHUFFLE CARD STYLING - MATCHES MAIN CARD BACK */
+/* ============================================ */
+.shuffle-card {
+    pointer-events: none;
+}
+
+/* Ensure shuffle card back content matches main card back */
+.shuffle-card .card-back-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+}
+
+.shuffle-card .untolds-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px;
+    margin-bottom: -8px;
+    letter-spacing: 2px;
+    color: var(--deck-back-text);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* FONT FIX: added font-weight: bold to match @font-face declaration */
+.shuffle-card .chapter-display {
+    font-family: 'Aston Script', cursive;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px;
+    opacity: 0.95;
+    letter-spacing: 1px;
+    color: var(--deck-back-text);
+}
+
+.shuffle-card .card-number-display {
+    font-size: 15px;
+    opacity: 0.8;
+    font-family: 'Nunito Sans', sans-serif;
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: var(--deck-back-text);
+}
+
+/* Apply back card colors to shuffle cards via the same classes */
+.shuffle-card.unsung-original-back {
+    background: #0E1E5F;
+    border: 2px solid #0E1E5F;
+    color: #FFFFFF;
+}
+
+.shuffle-card.unsungplus-back {
+    background: #FFFFFF;
+    border: 2px solid #0E1E5F;
+    color: #0E1E5F;
+}
+
+.shuffle-card.love-back {
+    background: #7A160F;
+    border: 2px solid #7A160F;
+    color: #FFFFFF;
+}
+
+.shuffle-card.loveplus-back {
+    background: #47100D;
+    border: 2px solid #47100D;
+    color: #ECF0F1;
+}
+
+.shuffle-card.between-back {
+    background: linear-gradient(135deg, #6D213C 0%, #1A1A2E 100%);
+    border: 2px solid #C0C0C0;
+    color: #C0C0C0;
+}
+
+/* ============================================ */
+/* WILD ONES SHUFFLE CARD - ISOLATED FOR SMOOTH ANIMATION */
+/* ============================================ */
+.shuffle-card.wild-back {
+    background: #000000;
+    border: 2px solid #FF0000;
+    color: #FFFFFF;
+    position: absolute !important;
+    overflow: hidden !important;
+    transform-origin: center !important;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Remove decorative ::before pattern from shuffle cards to keep animation smooth */
+.shuffle-card.wild-back::before {
+    display: none !important;
+}
+
+/* ============================================ */
+/* LIFE OVER WHISKEY SHUFFLE CARD - ISOLATED FOR SMOOTH ANIMATION */
+/* ============================================ */
+.shuffle-card.whiskey-back {
+    background: #000000;
+    border: 2px solid #5C4033;
+    color: #D4AF37;
+    position: absolute !important;
+    overflow: hidden !important;
+    transform-origin: center !important;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Remove decorative ::before pattern from shuffle cards to keep animation smooth */
+.shuffle-card.whiskey-back::before {
+    display: none !important;
+}
+
+/* LIQUID GLASS EFFECT FOR CARD BACKS */
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform-origin: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+    background: var(--deck-back-bg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--deck-back-text);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 2;
+}
+
+/* Enhanced liquid glass for front cards */
+.card-front {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* UNSUNG EMOTIONS (ORIGINAL) */
+.unsung-original-back {
+    background: #0E1E5F;
+    border: 2px solid #0E1E5F;
+    color: #FFFFFF;
+}
+
+.unsung-blue-card {
+    background: #0E1E5F;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 8px 32px rgba(14, 30, 95, 0.2);
+}
+
+.unsung-white-card {
+    background: rgba(255, 255, 255, 0.95);
+    color: #0E1E5F;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.unsung-white-card .question {
+    color: #0E1E5F;
+}
+
+/* UNSUNG EMOTIONS PLUS */
+.unsungplus-back {
+    background: #FFFFFF;
+    border: 2px solid #0E1E5F;
+    color: #0E1E5F;
+}
+
+.blue-card {
+    background: #0E1E5F;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 8px 32px rgba(14, 30, 95, 0.2);
+}
+
+.white-card {
+    background: rgba(255, 255, 255, 0.95);
+    color: #0E1E5F;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.white-card .question {
+    color: #0E1E5F;
+}
+
+.grateful-card {
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 3%, #0E1E5F 80%);
+    color: #0E1E5F;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 8px 32px rgba(14, 30, 95, 0.15);
+}
+
+.grateful-card .question {
+    color: #0E1E5F;
+    font-weight: 700;
+}
+
+.truth-card {
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 3%, #0E1E5F 80%);
+    color: #0E1E5F;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 8px 32px rgba(14, 30, 95, 0.15);
+}
+
+.truth-card .question {
+    color: #0E1E5F;
+    font-weight: 700;
+}
+
+.impact-card {
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 3%, #0E1E5F 80%);
+    color: #0E1E5F;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 8px 32px rgba(14, 30, 95, 0.15);
+}
+
+.impact-card .question {
+    color: #0E1E5F;
+    font-weight: 700;
+}
+
+/* LOVE UNFILTERED */
+.love-back {
+    background: #7A160F;
+    border: 2px solid #7A160F;
+    color: white;
+}
+
+.love-red-card {
+    background: #7A160F;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 8px 32px rgba(122, 22, 15, 0.2);
+}
+
+.love-white-card {
+    background: rgba(255, 255, 255, 0.95);
+    color: #7A160F;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.love-white-card .white-rule {
+    color: #7A160F;
+}
+
+.love-white-card .question {
+    color: #7A160F;
+}
+
+.love-card {
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 3%, #7A160F 80%);
+    color: #7A160F;
+    border: 1px solid rgba(122, 22, 15, 0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 8px 32px rgba(122, 22, 15, 0.15);
+}
+
+.love-card .white-rule {
+    color: #7A160F;
+}
+
+.love-card .question {
+    color: #7A160F;
+}
+
+/* BETWEEN US */
+.between-back {
+    background: linear-gradient(135deg, #6D213C 0%, #1A1A2E 100%);
+    border: 2px solid #C0C0C0;
+    color: #C0C0C0;
+}
+
+.between-card {
+    background: linear-gradient(135deg, #6D213C 0%, #1A1A2E 100%);
+    border: 1px solid rgba(192, 192, 192, 0.3);
+    color: #C0C0C0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 8px 32px rgba(109, 33, 60, 0.2);
+}
+
+.between-card .card-type {
+    color: #FFFFFF;
+}
+
+.between-card .question {
+    color: #C0C0C0;
+}
+
+.rule-box {
+    border-radius: 12px;
+    padding-bottom: 12px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 13px;
+    font-style: italic;
+    border: 1px dashed rgba(0, 0, 0, 0.1);
+    color: #C0C0C0;
+    text-align: center;
+}
+
+/* LOVE UNFILTERED PLUS */
+.loveplus-back {
+    background: #47100D;
+    border: 2px solid #47100D;
+    color: #ECF0F1;
+}
+
+.plus-red-card {
+    background: #47100D;
+    color: #ECF0F1;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 8px 32px rgba(71, 16, 13, 0.2);
+}
+
+.plus-white-card {
+    background: rgba(236, 240, 241, 0.95);
+    color: #47100D;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.plus-white-card .question {
+    color: #47100D;
+}
+
+.plus-love-card {
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 3%, #47100D 80%);
+    color: #47100D;
+    border: 1px solid rgba(71, 16, 13, 0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 8px 32px rgba(71, 16, 13, 0.15);
+}
+
+.plus-love-card .question {
+    color: #47100D;
+}
+
+.plus-pass-card {
+    background: #47100D;
+    color: #ECF0F1;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 8px 32px rgba(71, 16, 13, 0.2);
+}
+
+.plus-takens-card {
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 3%, #1F201C 80%);
+    color: #000000;
+    border: 1px solid rgba(71, 16, 13, 0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 8px 32px rgba(31, 32, 28, 0.15);
+}
+
+.plus-takens-card .question {
+    color: #000000;
+}
+
+.plus-boys-card {
+    background: #000000;
+    color: #FFFFFF;
+    border: 1px solid rgba(71, 16, 13, 0.3);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.plus-girls-card {
+    background: rgba(255, 255, 255, 0.95);
+    color: #000000;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.plus-girls-card .question {
+    color: #000000;
+}
+
+/* WILD ONES */
+.wild-back {
+    background: #000000;
+    border: 2px solid #FF0000;
+    color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+}
+
+.wild-back::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 20%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 0, 0, 0.1) 0%, transparent 50%);
+}
+
+.wild-black-card {
+    background: #000000;
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 8px 32px rgba(255, 0, 0, 0.2);
+}
+
+.wild-black-card .card-type {
+    color: #FF0000;
+}
+
+.wild-white-card {
+    background: rgba(255, 255, 255, 0.95);
+    color: #000000;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.wild-white-card .card-type {
+    color: #FF0000;
+}
+
+.wild-white-card .question {
+    color: #000000;
+}
+
+.escape-card-1 {
+    background: #000000;
+    color: #FFFFFF;
+    border: 1px solid rgba(57, 255, 20, 0.3);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(57, 255, 20, 0.1),
+        0 8px 32px rgba(57, 255, 20, 0.2);
+}
+
+.escape-card-1 .card-type {
+    color: #39FF14;
+}
+
+/* LIFE OVER WHISKEY */
+.whiskey-back {
+    background: #000000;
+    border: 2px solid #5C4033;
+    color: #D4AF37;
+    position: relative;
+}
+
+.whiskey-back::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.1"><path d="M30,20 L70,20 L80,60 L50,80 L20,60 Z" fill="none" stroke="%23D4AF37" stroke-width="1"/></svg>');
+    background-size: 100px;
+}
+
+.whiskey-front {
+    background: #000000;
+    color: #D4AF37;
+    border: 1px solid rgba(92, 64, 51, 0.3);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 1px 0 rgba(212, 175, 55, 0.1),
+        0 8px 32px rgba(212, 175, 55, 0.2);
+}
+
+.whiskey-front .card-type {
+    color: #D4AF37;
+}
+
+.whiskey-front .question {
+    color: #D4AF37;
+}
+
+.whiskey-divider {
+    display: none;
+    height: 2px;
+    background: #D4AF37;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.shot-rule {
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 15px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    opacity: 70%;
+    color: #D4AF37;
+    text-align: center;
+}
+
+/* DARK MODE ADJUSTMENTS */
+.dark-mode .unsung-white-card,
+.dark-mode .white-card,
+.dark-mode .love-white-card,
+.dark-mode .plus-white-card,
+.dark-mode .plus-girls-card,
+.dark-mode .wild-white-card {
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 8px 32px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .plus-takens-card {
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 8px 32px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .grateful-card,
+.dark-mode .truth-card,
+.dark-mode .impact-card,
+.dark-mode .love-card,
+.dark-mode .plus-love-card {
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 8px 32px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .whiskey-front {
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    box-shadow: 
+        inset 0 1px 0 rgba(212, 175, 55, 0.2),
+        0 8px 32px rgba(212, 175, 55, 0.3);
+}
+
+.dark-mode .unsung-blue-card,
+.dark-mode .blue-card,
+.dark-mode .love-red-card,
+.dark-mode .plus-red-card,
+.dark-mode .plus-pass-card,
+.dark-mode .wild-black-card,
+.dark-mode .escape-card-1,
+.dark-mode .between-card,
+.dark-mode .plus-boys-card {
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 8px 32px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .card-type {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.dark-mode .question {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .card-logo {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.unsung-blue-card,
+.white-card,
+.love-red-card,
+.love-white-card,
+.love-card,
+.between-card,
+.plus-red-card,
+.plus-white-card,
+.plus-love-card,
+.plus-pass-card,
+.plus-takens-card,
+.plus-boys-card,
+.plus-girls-card,
+.wild-black-card,
+.wild-white-card,
+.escape-card-1,
+.whiskey-front {
+    border-width: 1px !important;
+}
